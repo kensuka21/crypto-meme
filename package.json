@@ -6,7 +6,9 @@
   "scripts": {
     "build": "webpack -d",
     "dev": "webpack-dev-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "esw webpack.config.* src tools --color",
+    "lint:watch": "npm run lint -- --watch"
   },
   "author": "Kenji Mukai <kensuka21@gmail.com>",
   "license": "ISC",
@@ -19,6 +21,10 @@
     "babel-loader": "^7.1.4",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.0",
+    "eslint-plugin-react": "^7.7.0",
+    "eslint-watch": "^3.1.3",
     "html-webpack-plugin": "^3.0.7",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.7",
@@ -26,7 +32,6 @@
     "url-loader": "^1.0.1",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.12",
-    "webpack-dev-server": "^3.1.1",
-    "css-loader": "^0.28.11"    
+    "webpack-dev-server": "^3.1.1"
   }
 }
