@@ -30,7 +30,7 @@ CryptoDetailBoxTitle.propTypes = {
 
 const CryptoDetailBoxContent = ({children}) => {
   return (
-    <div className="crypto-detail-box-title">{children}</div>
+    <div className="crypto-detail-box-content">{children}</div>
   );
 };
 
