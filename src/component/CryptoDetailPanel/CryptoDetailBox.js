@@ -28,14 +28,22 @@ CryptoDetailBoxTitle.propTypes = {
   children: PropTypes.any
 };
 
-const CryptoDetailBoxContent = ({children}) => {
+const CryptoDetailBoxContent = ({children, trend}) => {
+  const classes = classNames(
+    'crypto-detail-box-content',
+    {
+      'red-text': trend === 'bearish',
+      'green-text': trend === 'bullish'
+    }
+  );
   return (
-    <div className="crypto-detail-box-content">{children}</div>
+    <div className={classes}>{children}</div>
   );
 };
 
 CryptoDetailBoxContent.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.any,
+  trend: PropTypes.string
 };
 
 CryptoDetailBox.CryptoDetailBoxTitle = CryptoDetailBoxTitle;

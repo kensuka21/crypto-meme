@@ -12,17 +12,17 @@ const CryptoDetailPanel = () => {
 
       <CryptoDetailBox>
         <CryptoDetailBox.CryptoDetailBoxTitle>Bitcoin Price</CryptoDetailBox.CryptoDetailBoxTitle>
-        <div>$8,829.22</div>
+        <CryptoDetailBox.CryptoDetailBoxContent>$8,829.22</CryptoDetailBox.CryptoDetailBoxContent>
       </CryptoDetailBox>
 
       <CryptoDetailBox>
         <CryptoDetailBox.CryptoDetailBoxTitle>Percent Change</CryptoDetailBox.CryptoDetailBoxTitle>
-        <div>10%</div>
+        <CryptoDetailBox.CryptoDetailBoxContent trend="bullish">10%</CryptoDetailBox.CryptoDetailBoxContent>
       </CryptoDetailBox>
 
       <CryptoDetailBox>
         <CryptoDetailBox.CryptoDetailBoxTitle>Price Change</CryptoDetailBox.CryptoDetailBoxTitle>
-        <div>$829.22</div>
+        <CryptoDetailBox.CryptoDetailBoxContent>$829.22</CryptoDetailBox.CryptoDetailBoxContent>
       </CryptoDetailBox>
     </div>
   );
