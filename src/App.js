@@ -1,11 +1,12 @@
 import React from 'react';
-import './App.scss';
+import './App.sass';
+import MainPage from './container/MainPage';
 
 class App extends React.Component {
   render() {
     return (
       <div>
-                Hello World
+        <MainPage/>
       </div>
     );
   }
