@@ -17,7 +17,7 @@ const CryptoDetailPanel = () => {
 
       <CryptoDetailBox>
         <CryptoDetailBox.CryptoDetailBoxTitle>Percent Change</CryptoDetailBox.CryptoDetailBoxTitle>
-        <CryptoDetailBox.CryptoDetailBoxContent trend="bullish">10%</CryptoDetailBox.CryptoDetailBoxContent>
+        <CryptoDetailBox.CryptoDetailBoxContent trend="bearish">10%</CryptoDetailBox.CryptoDetailBoxContent>
       </CryptoDetailBox>
 
       <CryptoDetailBox>
