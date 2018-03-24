@@ -13,6 +13,7 @@
   "author": "Kenji Mukai <kensuka21@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "moment": "^2.21.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },
