@@ -3,7 +3,7 @@ import CryptoDetailPanel from '../../component/CryptoDetailPanel';
 import canWePanicGif from '../../assets/can_we_panic.gif';
 import itsOkGif from '../../assets/its_ok.gif';
 import './MainPage.sass';
-import { getBitcoinPrice, getYesterdayBitcoinPrice } from '../../api/crypto.api';
+import { getBitcoinPrice } from '../../api/crypto.api';
 
 class MainPage extends React.Component {
 
@@ -21,23 +21,24 @@ class MainPage extends React.Component {
   componentDidMount() {
     getBitcoinPrice()
       .then(bitconPrice => {
-        getYesterdayBitcoinPrice()
-          .then(yesterdayPrice => {
-            let gif = '';
-            let percentChange = (((bitconPrice / yesterdayPrice) - 1) * 100).format(2);
+        bitconPrice = bitconPrice[0];
 
-            if (-10 <= percentChange && percentChange < -3){
-              gif = canWePanicGif;
-            } else if (-3 <= percentChange && percentChange < 3) {
-              gif = itsOkGif;
-            }
-            this.setState({
-              price: (bitconPrice).format(2),
-              percentChange: percentChange,
-              priceChange: (bitconPrice - yesterdayPrice).format(2),
-              gif: gif
-            });
-          });
+        let gif = '';
+        const price = Number(bitconPrice.price_usd);
+        const percentChange = Number(bitconPrice.percent_change_24h);
+        const priceChange = price - (price / ((percentChange / 100) + 1)) ;
+        
+        if (-10 <= percentChange && percentChange < -3){
+          gif = canWePanicGif;
+        } else if (-3 <= percentChange && percentChange < 3) {
+          gif = itsOkGif;
+        }
+        this.setState({
+          price: price.format(2),
+          percentChange: percentChange.format(2),
+          priceChange: priceChange.format(2),
+          gif: gif
+        });
       });
   }
 
