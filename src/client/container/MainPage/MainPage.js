@@ -46,7 +46,7 @@ class MainPage extends React.Component {
       <div className="main-page">
         <CryptoDetailPanel {...this.state}/>
 
-        <img className="gif-meme" src={this.state.gif}/>
+        { this.state.gif ? <img className="gif-meme" src={this.state.gif}/> : null }
       </div>
     );
   }
