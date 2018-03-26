@@ -1,6 +1,7 @@
 import React from 'react';
 import CryptoDetailPanel from '../../component/CryptoDetailPanel';
-import gif from '../../assets/can_we_panic.gif';
+import canWePanicGif from '../../assets/can_we_panic.gif';
+import itsOkGif from '../../assets/its_ok.gif';
 import './MainPage.sass';
 import { getBitcoinPrice, getYesterdayBitcoinPrice } from '../../api/crypto.api';
 
@@ -12,20 +13,29 @@ class MainPage extends React.Component {
     this.state = {
       price: '',
       percentChange: '',
-      priceChange: ''
+      priceChange: '',
+      gif: ''
     };
   }
 
   componentDidMount() {
     getBitcoinPrice()
       .then(bitconPrice => {
-        
         getYesterdayBitcoinPrice()
           .then(yesterdayPrice => {
+            let gif = '';
+            let percentChange = (((bitconPrice / yesterdayPrice) - 1) * 100).format(2);
+
+            if (-3 <= percentChange && percentChange <= 3) {
+              gif = itsOkGif;
+            }
+
+            
             this.setState({
               price: (bitconPrice).format(2),
-              percentChange: (((bitconPrice / yesterdayPrice) - 1) * 100).format(2),
-              priceChange: (bitconPrice - yesterdayPrice).format(2)
+              percentChange: percentChange,
+              priceChange: (bitconPrice - yesterdayPrice).format(2),
+              gif: gif
             });
           });
       });
@@ -36,8 +46,7 @@ class MainPage extends React.Component {
       <div className="main-page">
         <CryptoDetailPanel {...this.state}/>
 
-        <img className="gif-meme" src={gif}/>
-
+        <img className="gif-meme" src={this.state.gif}/>
       </div>
     );
   }
