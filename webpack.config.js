@@ -4,7 +4,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 var BUILD_DIR = path.resolve(__dirname, 'dist');
-var APP_DIR = path.resolve(__dirname, 'src');
+var APP_DIR = path.resolve(__dirname, 'src/client');
 
 var config = {
   entry: APP_DIR + '/index.js',

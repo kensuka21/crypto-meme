@@ -26,11 +26,11 @@ class MainPage extends React.Component {
             let gif = '';
             let percentChange = (((bitconPrice / yesterdayPrice) - 1) * 100).format(2);
 
-            if (-3 <= percentChange && percentChange <= 3) {
+            if (-10 <= percentChange && percentChange < -3){
+              gif = canWePanicGif;
+            } else if (-3 <= percentChange && percentChange < 3) {
               gif = itsOkGif;
             }
-
-            
             this.setState({
               price: (bitconPrice).format(2),
               percentChange: percentChange,

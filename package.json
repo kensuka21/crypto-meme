@@ -6,7 +6,6 @@
   "scripts": {
     "build": "webpack -d",
     "dev": "webpack-dev-server",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "esw webpack.config.* src tools --color",
     "lint:watch": "npm run lint -- --watch"
   },
