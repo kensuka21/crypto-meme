@@ -5,6 +5,7 @@ import itsOkGif from '../../assets/its_ok.gif';
 import cryingGif from '../../assets/crying.gif';
 import './MainPage.sass';
 import { getBitcoinPrice } from '../../api/crypto.api';
+import CryptoNewsPanel from '../../component/CryptoNewsPanel/CryptoNewsPanel';
 
 class MainPage extends React.Component {
 
@@ -52,6 +53,11 @@ class MainPage extends React.Component {
         <CryptoDetailPanel {...this.state}/>
 
         { this.state.gif ? <img className="gif-meme" src={this.state.gif}/> : null }
+
+        <br/>
+        <br/>
+
+        <CryptoNewsPanel/>
       </div>
     );
   }
