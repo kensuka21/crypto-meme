@@ -6,7 +6,6 @@ const CryptoNewsPanel = () => {
     <div className="crypto-news-panel">
       <h1>BITCOIN NEWS</h1>
       <label>(Powered by News API)</label>
-      <hr/>
     </div>
   );
 };
