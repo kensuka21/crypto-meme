@@ -6,6 +6,7 @@ import cryingGif from '../../assets/crying.gif';
 import './MainPage.sass';
 import { getBitcoinPrice } from '../../api/crypto.api';
 import CryptoNewsPanel from '../../component/CryptoNewsPanel/CryptoNewsPanel';
+import { getBitcoinNews } from '../../api/news.api';
 
 class MainPage extends React.Component {
 
@@ -16,7 +17,8 @@ class MainPage extends React.Component {
       price: '',
       percentChange: '',
       priceChange: '',
-      gif: ''
+      gif: '',
+      news: []
     };
   }
 
@@ -45,6 +47,13 @@ class MainPage extends React.Component {
           gif: gif
         });
       });
+
+    getBitcoinNews()
+      .then(data => {
+        this.setState({
+          news: data.articles
+        });
+      });
   }
 
   render() {
@@ -52,12 +61,13 @@ class MainPage extends React.Component {
       <div className="main-page">
         <CryptoDetailPanel {...this.state}/>
 
-        { this.state.gif ? <img className="gif-meme" src={this.state.gif}/> : null }
+        <div className="gif-meme">
+          { this.state.gif ? <img src={this.state.gif}/> : null }
+        </div>
 
         <br/>
-        <br/>
 
-        <CryptoNewsPanel/>
+        <CryptoNewsPanel news={this.state.news}/>
       </div>
     );
   }
