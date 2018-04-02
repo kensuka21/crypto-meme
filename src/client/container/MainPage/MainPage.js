@@ -2,6 +2,7 @@ import React from 'react';
 import CryptoDetailPanel from '../../component/CryptoDetailPanel';
 import canWePanicGif from '../../assets/can_we_panic.gif';
 import itsOkGif from '../../assets/its_ok.gif';
+import gettingExcitedGif from '../../assets/getting_excited.gif';
 import cryingGif from '../../assets/crying.gif';
 import './MainPage.sass';
 import { getBitcoinPrice } from '../../api/crypto.api';
@@ -34,10 +35,12 @@ class MainPage extends React.Component {
 
         if (percentChange < -10){
           gif = cryingGif;
-        } else if (-10 <= percentChange && percentChange < -3){
+        } else if (-10 <= percentChange && percentChange < -3) {
           gif = canWePanicGif;
         } else if (-3 <= percentChange && percentChange < 3) {
           gif = itsOkGif;
+        } else if (percentChange >= 3) {
+          gif = gettingExcitedGif;
         }
 
         this.setState({
