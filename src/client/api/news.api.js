@@ -6,4 +6,4 @@ export function getBitcoinNews() {
     .then(response => {
       return response.json();
     });
-};
+}

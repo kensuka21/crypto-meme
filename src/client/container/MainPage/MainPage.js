@@ -1,9 +1,5 @@
 import React from 'react';
 import CryptoDetailPanel from '../../component/CryptoDetailPanel';
-import canWePanicGif from '../../assets/can_we_panic.gif';
-import itsOkGif from '../../assets/its_ok.gif';
-import gettingExcitedGif from '../../assets/getting_excited.gif';
-import cryingGif from '../../assets/crying.gif';
 import './MainPage.sass';
 import { getBitcoinPrice } from '../../api/crypto.api';
 import CryptoNewsPanel from '../../component/CryptoNewsPanel/CryptoNewsPanel';
@@ -34,13 +30,13 @@ class MainPage extends React.Component {
         const priceChange = price - (price / ((percentChange / 100) + 1)) ;
 
         if (percentChange < -10){
-          gif = cryingGif;
+          gif = 'crying.gif';
         } else if (-10 <= percentChange && percentChange < -3) {
-          gif = canWePanicGif;
+          gif = 'can_we_panic.gif';
         } else if (-3 <= percentChange && percentChange < 3) {
-          gif = itsOkGif;
+          gif = 'its_ok.gif';
         } else if (percentChange >= 3) {
-          gif = gettingExcitedGif;
+          gif = 'getting_excited.gif';
         }
 
         this.setState({
@@ -65,11 +61,11 @@ class MainPage extends React.Component {
         <CryptoDetailPanel {...this.state}/>
 
         <div className="gif-meme">
-          { this.state.gif ? <img src={this.state.gif}/> : null }
+          { this.state.gif ? <img src={`http://localhost:3000/gifs/${this.state.gif}`}/> : null }
+          <br/>
+          <i className="fas fa-heart fa-2x"></i>
         </div>
-
         <br/>
-
         <CryptoNewsPanel news={this.state.news}/>
       </div>
     );
