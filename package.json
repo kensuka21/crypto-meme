@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "build": "webpack -d",
+    "analyzer": "webpack --profile --json > stats.json",
     "dev": "webpack-dev-server",
     "lint": "esw webpack.config.* src tools --color",
     "lint:watch": "npm run lint -- --watch"
@@ -12,6 +13,7 @@
   "author": "Kenji Mukai <kensuka21@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "moment": "2.21.0",
     "react": "16.2.0",
     "react-dom": "16.2.0"
@@ -35,6 +37,7 @@
     "uglifyjs-webpack-plugin": "1.2.4",
     "url-loader": "1.0.1",
     "webpack": "4.1.1",
+    "webpack-bundle-analyzer": "^2.11.1",
     "webpack-cli": "2.0.12",
     "webpack-dev-server": "3.1.1"
   }

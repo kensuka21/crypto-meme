@@ -22,7 +22,7 @@ const CryptoNews = ({article}) => {
 };
 
 CryptoNews.propTypes = {
-  article: PropTypes.array
+  article: PropTypes.object
 };
 
 export default CryptoNews;
