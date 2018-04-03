@@ -4,6 +4,8 @@ import './MainPage.sass';
 import { getBitcoinPrice } from '../../api/crypto.api';
 import CryptoNewsPanel from '../../component/CryptoNewsPanel/CryptoNewsPanel';
 import { getBitcoinNews } from '../../api/news.api';
+import io from 'socket.io-client';
+let socket = io('http://localhost:3000/likes');
 
 class MainPage extends React.Component {
 
@@ -19,7 +21,20 @@ class MainPage extends React.Component {
     };
   }
 
+  newLike = () => {
+    socket.emit('newLike', this.state.gif);
+  }
+
   componentDidMount() {
+
+    socket.on('connect', (data) => {
+      console.log('connected', data);
+    });
+
+    socket.on('addLike', () => {
+      alert('New like');
+    });
+
     getBitcoinPrice()
       .then(bitconPrice => {
         bitconPrice = bitconPrice[0];
@@ -65,7 +80,7 @@ class MainPage extends React.Component {
           <br/>
           <br/>
           <label>2,502</label>
-          <i className="fas fa-heart fa-2x"></i>
+          <a href="javascript:void(0)" onClick={this.newLike}><i className="fas fa-heart fa-2x" ></i></a>
         </div>
         <br/>
         <CryptoNewsPanel news={this.state.news}/>

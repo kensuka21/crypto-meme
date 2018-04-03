@@ -8,7 +8,10 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  return res.json(req.body);
+  let like = new Like(req.body);
+
+  like.save();
+  return res.json(like);
 });
 
 module.exports = router;
