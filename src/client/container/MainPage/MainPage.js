@@ -63,6 +63,8 @@ class MainPage extends React.Component {
         <div className="gif-meme">
           { this.state.gif ? <img src={`http://localhost:3000/gifs/${this.state.gif}`}/> : null }
           <br/>
+          <br/>
+          <label>2,502</label>
           <i className="fas fa-heart fa-2x"></i>
         </div>
         <br/>

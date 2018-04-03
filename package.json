@@ -5,11 +5,11 @@
   "main": "server.js",
   "scripts": {
     "build:client": "webpack -d --mode production --config webpack.config.prod.js",
-    "build:server": "babel src/server -d dist",
     "build": "npm-run-all build:*",
     "dev:client": "webpack-dev-server --config webpack.config.dev.js --mode development",
-    "dev:server": "nodemon src/server --exec babel-node ",
-    "dev": "npm-run-all --parallel dev:server dev:client",
+    "dev:server": "nodemon server --exec babel-node ",
+    "dev": "npm-run-all --parallel dev:*",
+    "start": "babel-node server.js",
     "lint": "esw webpack.config.* src tools --color",
     "lint:watch": "npm run lint -- --watch"
   },
@@ -19,10 +19,11 @@
     "babel-polyfill": "6.26.0",
     "body-parser": "1.18.2",
     "compression": "1.7.2",
-    "express": "4.16.3",
+    "express": "^4.16.3",
     "moment": "2.21.0",
     "react": "16.2.0",
-    "react-dom": "16.2.0"
+    "react-dom": "16.2.0",
+    "socket.io": "^2.1.0"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
