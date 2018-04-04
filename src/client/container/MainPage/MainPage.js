@@ -3,6 +3,7 @@ import CryptoDetailPanel from '../../component/CryptoDetailPanel';
 import './MainPage.sass';
 import { getBitcoinPrice } from '../../api/crypto.api';
 import CryptoNewsPanel from '../../component/CryptoNewsPanel/CryptoNewsPanel';
+import { isGifLiked, likeCount } from '../../api/like.api';
 import { getBitcoinNews } from '../../api/news.api';
 import io from 'socket.io-client';
 let socket = io('http://localhost:3000/likes');
@@ -17,6 +18,8 @@ class MainPage extends React.Component {
       percentChange: '',
       priceChange: '',
       gif: '',
+      likeCount: 0,
+      isGifLiked: false,
       news: []
     };
   }
@@ -25,16 +28,14 @@ class MainPage extends React.Component {
     socket.emit('newLike', this.state.gif);
   }
 
-  componentDidMount() {
+  loadLikeCount() {
+    likeCount()
+      .then(count => {
+        this.setState({ likeCount: count });
+      });
+  }
 
-    socket.on('connect', (data) => {
-      console.log('connected', data);
-    });
-
-    socket.on('addLike', () => {
-      alert('New like');
-    });
-
+  loadBitcoinPrice() {
     getBitcoinPrice()
       .then(bitconPrice => {
         bitconPrice = bitconPrice[0];
@@ -54,6 +55,12 @@ class MainPage extends React.Component {
           gif = 'getting_excited.gif';
         }
 
+        isGifLiked(gif)
+          .then(() => {
+            this.setState({ isGifLiked: true });
+          })
+          .catch(() => {});
+
         this.setState({
           price: price.format(2),
           percentChange: percentChange.format(2),
@@ -61,13 +68,33 @@ class MainPage extends React.Component {
           gif: gif
         });
       });
+  }
 
+  loadBitcoinNews() {
     getBitcoinNews()
       .then(data => {
         this.setState({
           news: data.articles
         });
       });
+  }
+
+  componentDidMount() {
+    socket.on('connect', () => {
+
+    });
+
+    socket.on('addLike', () => {
+      this.setState(prevState => {
+        console.log(prevState.likeCount);
+        
+        return { likeCount:  prevState.likeCount + 1 };
+      });
+    });
+
+    this.loadBitcoinPrice();
+    this.loadBitcoinNews();
+    this.loadLikeCount();
   }
 
   render() {
@@ -79,7 +106,7 @@ class MainPage extends React.Component {
           { this.state.gif ? <img src={`http://localhost:3000/gifs/${this.state.gif}`}/> : null }
           <br/>
           <br/>
-          <label>2,502</label>
+          <label>{this.state.likeCount}</label>
           <a href="javascript:void(0)" onClick={this.newLike}><i className="fas fa-heart fa-2x" ></i></a>
         </div>
         <br/>

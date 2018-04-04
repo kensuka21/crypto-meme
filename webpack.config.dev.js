@@ -14,7 +14,8 @@ config.plugins = config.plugins || [];
 config.plugins.push(
   new webpack.DefinePlugin({
     'process.env': {
-      'NODE_ENV': JSON.stringify('development')
+      'NODE_ENV': JSON.stringify('development'),
+      'API_URL': JSON.stringify('http://localhost:3000')
     }
   })
 );

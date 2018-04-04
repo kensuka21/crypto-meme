@@ -1,17 +1,26 @@
 const router = require('express').Router();
 const Like = require('../../models/Like');
 
-router.get('/', (req, res) => {
-  Like.find({}, (err, likes) => {
-    return res.json(likes);
-  });
+router.get('/gif/:gif', (req, res) => {
+  Like.find({
+    gif: req.params.gif,
+    ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  })
+    .sort({_id:-1})
+    .limit(1)
+    .exec((err, likes) => {
+      if (!likes || likes.length === 0) {
+        return res.sendStatus(400);
+      }
+
+      return res.json(likes[0]);
+    });
 });
 
-router.post('/', (req, res) => {
-  let like = new Like(req.body);
-
-  like.save();
-  return res.json(like);
+router.get('/count', (req, res) => {
+  Like.find({}, (err, likes) => {
+    return res.json(likes.length);
+  });
 });
 
 module.exports = router;
