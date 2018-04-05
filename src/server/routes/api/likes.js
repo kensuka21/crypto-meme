@@ -1,5 +1,5 @@
-const router = require('express').Router();
 const Like = require('../../models/Like');
+const router = require('express').Router();
 
 router.get('/gif/:gif', (req, res) => {
   Like.find({
@@ -17,8 +17,8 @@ router.get('/gif/:gif', (req, res) => {
     });
 });
 
-router.get('/count', (req, res) => {
-  Like.find({}, (err, likes) => {
+router.get('/gif/:gif/count', (req, res) => {
+  Like.find({ gif: req.params.gif }, (err, likes) => {
     return res.json(likes.length);
   });
 });

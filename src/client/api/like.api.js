@@ -10,8 +10,8 @@ export function isGifLiked(gif) {
     });
 }
 
-export function likeCount() {
-  return fetch(`${API_URL}/api/v1/likes/count`)
+export function likeCount(gif) {
+  return fetch(`${API_URL}/api/v1/likes/gif/${gif}/count`)
     .then(response => {
       return response.json();
     });

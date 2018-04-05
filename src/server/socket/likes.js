@@ -20,6 +20,18 @@ function init(io) {
           }
         });
       });
+
+      socket.on('removeLike', gif => {
+        Like.deleteMany({
+          ipAddress: socket.request.connection.remoteAddress,
+          gif: gif
+        }, (err) => {
+          if (err) return;
+
+          socket.broadcast.emit('reduceLike');
+          socket.emit('reduceLike');
+        });
+      });
     });
 };
 

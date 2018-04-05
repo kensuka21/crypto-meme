@@ -6,7 +6,7 @@ import CryptoNewsPanel from '../../component/CryptoNewsPanel/CryptoNewsPanel';
 import { isGifLiked, likeCount } from '../../api/like.api';
 import { getBitcoinNews } from '../../api/news.api';
 import io from 'socket.io-client';
-let socket = io('http://localhost:3000/likes');
+let socket = io(`${process.env.API_URL}/likes`);
 
 class MainPage extends React.Component {
 
@@ -24,15 +24,13 @@ class MainPage extends React.Component {
     };
   }
 
-  newLike = () => {
-    socket.emit('newLike', this.state.gif);
-  }
+  toggleLike = () => {
 
-  loadLikeCount() {
-    likeCount()
-      .then(count => {
-        this.setState({ likeCount: count });
-      });
+    if (this.state.isGifLiked) {
+      socket.emit('removeLike', this.state.gif);
+    } else {
+      socket.emit('newLike', this.state.gif);
+    }
   }
 
   loadBitcoinPrice() {
@@ -61,6 +59,11 @@ class MainPage extends React.Component {
           })
           .catch(() => {});
 
+        likeCount(gif)
+          .then(count => {
+            this.setState({ likeCount: count });
+          });
+
         this.setState({
           price: price.format(2),
           percentChange: percentChange.format(2),
@@ -86,15 +89,18 @@ class MainPage extends React.Component {
 
     socket.on('addLike', () => {
       this.setState(prevState => {
-        console.log(prevState.likeCount);
-        
-        return { likeCount:  prevState.likeCount + 1 };
+        return { likeCount:  prevState.likeCount + 1, isGifLiked: true };
+      });
+    });
+
+    socket.on('reduceLike', () => {
+      this.setState(prevState => {
+        return { likeCount:  prevState.likeCount > 0 ? prevState.likeCount - 1 : 0, isGifLiked: false };
       });
     });
 
     this.loadBitcoinPrice();
     this.loadBitcoinNews();
-    this.loadLikeCount();
   }
 
   render() {
@@ -103,11 +109,11 @@ class MainPage extends React.Component {
         <CryptoDetailPanel {...this.state}/>
 
         <div className="gif-meme">
-          { this.state.gif ? <img src={`http://localhost:3000/gifs/${this.state.gif}`}/> : null }
+          { this.state.gif ? <img src={`${process.env.API_URL}/gifs/${this.state.gif}`}/> : null }
           <br/>
           <br/>
           <label>{this.state.likeCount}</label>
-          <a href="javascript:void(0)" onClick={this.newLike}><i className="fas fa-heart fa-2x" ></i></a>
+          <a href="javascript:void(0)" onClick={this.toggleLike}><i className="fas fa-heart fa-2x" ></i></a>
         </div>
         <br/>
         <CryptoNewsPanel news={this.state.news}/>
