@@ -33,6 +33,17 @@ class MainPage extends React.Component {
     }
   }
 
+  loadLikes(gif) {
+    isGifLiked(gif)
+      .then((gifLiked) => {
+        likeCount(gif)
+          .then(count => {
+            this.setState({ likeCount: count, isGifLiked: gifLiked });
+          });
+      })
+      .catch(() => {});
+  }
+
   loadBitcoinPrice() {
     getBitcoinPrice()
       .then(bitconPrice => {
@@ -53,16 +64,7 @@ class MainPage extends React.Component {
           gif = 'getting_excited.gif';
         }
 
-        isGifLiked(gif)
-          .then(() => {
-            this.setState({ isGifLiked: true });
-          })
-          .catch(() => {});
-
-        likeCount(gif)
-          .then(count => {
-            this.setState({ likeCount: count });
-          });
+        this.loadLikes(gif);
 
         this.setState({
           price: price.format(2),
@@ -88,15 +90,11 @@ class MainPage extends React.Component {
     });
 
     socket.on('addLike', () => {
-      this.setState(prevState => {
-        return { likeCount:  prevState.likeCount + 1, isGifLiked: true };
-      });
+      this.loadLikes(this.state.gif);
     });
 
     socket.on('reduceLike', () => {
-      this.setState(prevState => {
-        return { likeCount:  prevState.likeCount > 0 ? prevState.likeCount - 1 : 0, isGifLiked: false };
-      });
+      this.loadLikes(this.state.gif);
     });
 
     this.loadBitcoinPrice();
