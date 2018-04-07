@@ -23,4 +23,4 @@ app.use(function(req, res, next) {
 app.use(api);
 // app.use('/', router);
 
-server.listen(3000, '0.0.0.0');
+server.listen(3000);
