@@ -111,7 +111,7 @@ class MainPage extends React.Component {
           <br/>
           <br/>
           <label>{this.state.likeCount}</label>
-          <a href="javascript:void(0)" onClick={this.toggleLike}><i className="fas fa-heart fa-2x" ></i></a>
+          <a href="javascript:void(0)" onClick={this.toggleLike}><i className="fas fa-thumbs-up fa-2x" ></i></a>
         </div>
         <br/>
         <CryptoNewsPanel news={this.state.news}/>
