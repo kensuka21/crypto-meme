@@ -6,6 +6,7 @@ import CryptoNewsPanel from '../../component/CryptoNewsPanel/CryptoNewsPanel';
 import { isGifLiked, likeCount } from '../../api/like.api';
 import { getBitcoinNews } from '../../api/news.api';
 import io from 'socket.io-client';
+import formatNumber from '../../helpers/formatNumber';
 let socket = io(`${process.env.API_URL}/likes`);
 
 class MainPage extends React.Component {
@@ -18,7 +19,7 @@ class MainPage extends React.Component {
       percentChange: '',
       priceChange: '',
       gif: '',
-      likeCount: 0,
+      likeCount: 5550,
       isGifLiked: false,
       news: []
     };
@@ -111,11 +112,13 @@ class MainPage extends React.Component {
             { this.state.gif ? <img src={`${process.env.API_URL}/gifs/${this.state.gif}`}/> : null }
           </div>
           <br/>
-          <br/>
-          <div>
-            <a href="javascript:void(0)" onClick={this.toggleLike}><i className="fas fa-thumbs-up fa-2x" ></i></a>
-            <label>{this.state.likeCount}</label>
-            <div>Like this gif</div>
+          <div className="gif-like">
+            <a href="javascript:void(0)" className={this.state.isGifLiked ? 'liked' : 'unliked'} onClick={this.toggleLike}><i className="fas fa-thumbs-up fa-2x" ></i></a>
+            <label className={this.state.isGifLiked ? 'liked' : ''}>{formatNumber(this.state.likeCount)}</label>
+            <div style={{ clear: 'both' }}></div>
+            <div>
+              <span className="gif-like-text">Like this gif</span>
+            </div>
           </div>
         </div>
         <br/>
