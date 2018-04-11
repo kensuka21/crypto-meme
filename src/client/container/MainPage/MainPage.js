@@ -107,11 +107,16 @@ class MainPage extends React.Component {
         <CryptoDetailPanel {...this.state}/>
 
         <div className="gif-meme">
-          { this.state.gif ? <img src={`${process.env.API_URL}/gifs/${this.state.gif}`}/> : null }
+          <div className="gif-img">
+            { this.state.gif ? <img src={`${process.env.API_URL}/gifs/${this.state.gif}`}/> : null }
+          </div>
           <br/>
           <br/>
-          <label>{this.state.likeCount}</label>
-          <a href="javascript:void(0)" onClick={this.toggleLike}><i className="fas fa-thumbs-up fa-2x" ></i></a>
+          <div>
+            <a href="javascript:void(0)" onClick={this.toggleLike}><i className="fas fa-thumbs-up fa-2x" ></i></a>
+            <label>{this.state.likeCount}</label>
+            <div>Like this gif</div>
+          </div>
         </div>
         <br/>
         <CryptoNewsPanel news={this.state.news}/>
