@@ -8,7 +8,7 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
 require('./src/server/socket')(io);
-mongoose.connect('mongodb://localhost/cryptomeme');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/cryptomeme');
 
 app.use(compression());
 app.use(bodyParser.json());
