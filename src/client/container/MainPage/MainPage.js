@@ -7,6 +7,8 @@ import { isGifLiked, likeCount } from '../../api/like.api';
 import { getBitcoinNews } from '../../api/news.api';
 import io from 'socket.io-client';
 import formatNumber from '../../helpers/formatNumber';
+import { GoogleLogin } from 'react-google-login';
+
 let socket = io(`${process.env.API_URL}/likes`);
 
 class MainPage extends React.Component {
@@ -102,6 +104,10 @@ class MainPage extends React.Component {
     this.loadBitcoinNews();
   }
 
+  responseGoogle(response) {
+    console.log(response);
+  }
+
   render() {
     return (
       <div className="main-page">
@@ -110,6 +116,15 @@ class MainPage extends React.Component {
         <div className="gif-meme">
           <div className="gif-img">
             { this.state.gif ? <img src={`${process.env.API_URL}/gifs/${this.state.gif}`}/> : null }
+          </div>
+          <br/>
+          <div className="google-signin">
+            <GoogleLogin
+              clientId="329817704445-rl1r1738d0n99f73nf32nka6trlh5og2"
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}>
+              <i className="fab fa-google"></i> <span>Login with Google</span>
+            </GoogleLogin>
           </div>
           <br/>
           <div className="gif-like">
