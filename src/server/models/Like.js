@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const LikeSchema = new mongoose.Schema({
-  ipAddress: {
+  email: {
     type: String,
     required: true
   },

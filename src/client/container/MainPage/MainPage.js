@@ -23,25 +23,34 @@ class MainPage extends React.Component {
       gif: '',
       likeCount: 5550,
       isGifLiked: false,
-      news: []
+      news: [],
+      authUser: null
     };
   }
 
   toggleLike = () => {
-
+    if (!this.state.authUser) {
+      alert('You have to sign in with Google.');
+      return;
+    }
+    const like = { email: this.state.authUser.email, gif: this.state.gif };
     if (this.state.isGifLiked) {
-      socket.emit('removeLike', this.state.gif);
+      socket.emit('removeLike', like);
     } else {
-      socket.emit('newLike', this.state.gif);
+      socket.emit('newLike', like);
     }
   }
 
   loadLikes(gif) {
-    isGifLiked(gif)
-      .then((gifLiked) => {
-        likeCount(gif)
-          .then(count => {
+    likeCount(gif)
+      .then(count => {
+        const email = this.state.authUser ? this.state.authUser.email : 'undefined';
+
+        isGifLiked(email, gif)
+          .then((gifLiked) => {
             this.setState({ likeCount: count, isGifLiked: gifLiked });
+          }, () => {
+            this.setState({ likeCount: count });
           });
       })
       .catch(() => {});
@@ -88,6 +97,14 @@ class MainPage extends React.Component {
   }
 
   componentDidMount() {
+    const authUser = localStorage.getItem('authUser');
+
+    if (authUser) {
+      this.setState({
+        authUser: JSON.parse(authUser)
+      });
+    }
+
     socket.on('connect', () => {
 
     });
@@ -102,29 +119,47 @@ class MainPage extends React.Component {
 
     this.loadBitcoinPrice();
     this.loadBitcoinNews();
+
+    setTimeout(() => {
+    }, 1000);
   }
 
   responseGoogle(response) {
-    console.log(response);
+    if (!response.profileObj) return;
+
+    const authUser = {
+      email: response.profileObj.email,
+      name: response.profileObj.name
+    };
+
+    localStorage.setItem('authUser', JSON.stringify(authUser));
+    this.setState({
+      authUser: authUser
+    });
+    this.loadLikes(this.state.gif);
   }
 
   render() {
     return (
       <div className="main-page">
         <CryptoDetailPanel {...this.state}/>
-
+        <br/>
         <div className="gif-meme">
+          <div className="google-signin">
+            { !this.state.authUser ?
+              <GoogleLogin
+                id="googleBtn"
+                ref={(ref) => this.googleBtn = ref}
+                clientId="329817704445-rl1r1738d0n99f73nf32nka6trlh5og2"
+                onSuccess={this.responseGoogle.bind(this)}>
+                <i className="fab fa-google"></i> <span>Login with Google</span>
+              </GoogleLogin> :
+              <div>Welcome, {this.state.authUser.name}</div>
+            }
+
+          </div>
           <div className="gif-img">
             { this.state.gif ? <img src={`${process.env.API_URL}/gifs/${this.state.gif}`}/> : null }
-          </div>
-          <br/>
-          <div className="google-signin">
-            <GoogleLogin
-              clientId="329817704445-rl1r1738d0n99f73nf32nka6trlh5og2"
-              onSuccess={this.responseGoogle}
-              onFailure={this.responseGoogle}>
-              <i className="fab fa-google"></i> <span>Login with Google</span>
-            </GoogleLogin>
           </div>
           <br/>
           <div className="gif-like">

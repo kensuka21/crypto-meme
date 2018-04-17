@@ -1,7 +1,7 @@
 const API_URL = process.env.API_URL;
 
-export function isGifLiked(gif) {
-  return fetch(`${API_URL}/api/v1/likes/gif/${gif}`)
+export function isGifLiked(email, gif) {
+  return fetch(`${API_URL}/api/v1/likes/${email}/gif/${gif}`)
     .then((response) => {
       return response.json()
         .then(data => {

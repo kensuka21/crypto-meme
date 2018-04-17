@@ -1,10 +1,10 @@
 const Like = require('../../models/Like');
 const router = require('express').Router();
 
-router.get('/gif/:gif', (req, res) => {
+router.get('/:email/gif/:gif', (req, res) => {
   Like.find({
     gif: req.params.gif,
-    ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress
+    email: req.params.email
   })
     .sort({_id:-1})
     .limit(1)
