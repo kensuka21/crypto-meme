@@ -7,7 +7,7 @@ import { isGifLiked, likeCount } from '../../api/like.api';
 import { getBitcoinNews } from '../../api/news.api';
 import io from 'socket.io-client';
 import formatNumber from '../../helpers/formatNumber';
-import { GoogleLogin } from 'react-google-login';
+import GoogleLogin from 'react-google-login';
 
 let socket = io(`${process.env.API_URL}/likes`);
 
