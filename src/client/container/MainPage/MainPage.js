@@ -21,7 +21,7 @@ class MainPage extends React.Component {
       percentChange: '',
       priceChange: '',
       gif: '',
-      likeCount: 5550,
+      likeCount: 0,
       isGifLiked: false,
       news: [],
       authUser: null
@@ -166,7 +166,7 @@ class MainPage extends React.Component {
             <a href="javascript:void(0)" className={this.state.isGifLiked ? 'liked' : 'unliked'} onClick={this.toggleLike}><i className="fas fa-thumbs-up fa-2x" ></i></a>
             <label className={this.state.isGifLiked ? 'liked' : ''}>{formatNumber(this.state.likeCount)}</label>
             <div style={{ clear: 'both' }}></div>
-            <div>
+            <div className="text-center">
               <span className="gif-like-text">Like this gif</span>
             </div>
           </div>
