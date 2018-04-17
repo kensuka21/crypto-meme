@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "build:client": "webpack -d --mode production --config webpack.config.prod.js",
+    "build:server": "babel server.js -d dist && babel src/server -d dist",
     "build": "npm-run-all build:*",
     "dev:client": "webpack-dev-server --config webpack.config.dev.js --mode development --host 0.0.0.0",
     "dev:server": "nodemon server --exec babel-node ",
