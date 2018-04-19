@@ -5,12 +5,12 @@
   "main": "server.js",
   "scripts": {
     "build:client": "webpack -d --mode production --config webpack.config.prod.js",
-    "build:server": "babel server.js -d dist && babel src/server -d dist",
+    "build:server": "babel src/server -d dist",
     "build": "npm-run-all build:*",
     "dev:client": "webpack-dev-server --config webpack.config.dev.js --mode development --host 0.0.0.0",
-    "dev:server": "nodemon server --exec babel-node ",
-    "dev": "npm-run-all --parallel dev:*",
-    "start": "babel-node server.js",
+    "dev:server": "nodemon dist/index --exec babel-node ",
+    "dev": "npm-run-all --parallel build:server dev:*",
+    "start": "babel-node dist/index.js",
     "lint": "esw webpack.config.* src tools --color",
     "lint:watch": "npm run lint -- --watch"
   },
