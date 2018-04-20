@@ -11,8 +11,11 @@ const CryptoDetailPanel = ({ price, percentChange, priceChange }) => {
   const trend = percentChange >= 0 ? 'bullish' : 'bearish';
   return (
     <div className="crypto-detail-panel">
-      <CryptoDetailBox>
-        <img className="crypto-logo" src={bitcoinLogo} />
+      <CryptoDetailBox className="crypto-dropdown">
+        <a className="dropdown-btn" href="">
+          <img className="crypto-logo" src={bitcoinLogo} />
+          <i className="fas fa-caret-down"></i>
+        </a>
       </CryptoDetailBox>
 
       <CryptoDetailBox>
