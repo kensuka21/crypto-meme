@@ -12,10 +12,10 @@ const CryptoDetailPanel = ({ price, percentChange, priceChange }) => {
   return (
     <div className="crypto-detail-panel">
       <CryptoDetailBox className="crypto-dropdown">
-        <a className="dropdown-btn" href="">
+        <div className="dropdown-btn" href="">
           <img className="crypto-logo" src={bitcoinLogo} />
           <i className="fas fa-caret-down"></i>
-        </a>
+        </div>
       </CryptoDetailBox>
 
       <CryptoDetailBox>
