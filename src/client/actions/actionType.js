@@ -1,3 +1,0 @@
-export const LOAD_PRICE = 'LOAD_PRICE';
-export const LOAD_LIKE_COUNT = 'LOAD_LIKE_COUNT';
-export const LOAD_IS_GIF_LIKED = 'LOAD_IS_GIF_LIKED';

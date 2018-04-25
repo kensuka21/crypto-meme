@@ -1,0 +1,1 @@
+export const LOAD_CRYPTO_NEWS = 'LOAD_CRYPTO_NEWS';

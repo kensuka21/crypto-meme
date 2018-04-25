@@ -1,20 +1,29 @@
+import * as actionTypes from '../actions/crypto/actionTypes';
+
 const initialState = {
-  cryptos: [
+  list: [
     {
-      name: 'BTC'
+      code: 'BTC',
+      name: 'Bitcoin'
     },
     {
-      name: 'ETH'
+      code: 'ETH',
+      name: 'Ethereum'
     }
   ],
-  selectedCrypto: null
+  selectedCrypto: this.list[0],
+  cryptoPrice: {
+    price: 0.00,
+    percentChange: 0.00,
+    priceChange: 0.00
+  }
 };
 
 export default function crypto(state = initialState, action) {
   switch (action.type) {
-    case '':
-      return state;
-    default:
-      return state;
+  case actionTypes.LOAD_CRYPTO_PRICE_SUCCESS:
+    return Object.assign({}, state, { cryptoPrice: action.cryptoPrice});
+  default:
+    return state;
   }
-};
+}

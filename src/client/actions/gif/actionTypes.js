@@ -1,0 +1,1 @@
+export const LOAD_GIF_SUCCESS = 'LOAD_GIF';
