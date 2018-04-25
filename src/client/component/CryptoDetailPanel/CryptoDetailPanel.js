@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './CryptoDetailPanel.sass';
 import CryptoDetailBox from './CryptoDetailBox';
-import bitcoinLogo from '../../assets/bitcoin-logo.png';
+import CryptoDropdown from '../CryptoDropdown';
 
 const CryptoDetailPanel = ({ price, percentChange, priceChange }) => {
   if (!price) {
@@ -12,10 +12,7 @@ const CryptoDetailPanel = ({ price, percentChange, priceChange }) => {
   return (
     <div className="crypto-detail-panel">
       <CryptoDetailBox className="crypto-dropdown">
-        <div className="dropdown-btn" href="">
-          <img className="crypto-logo" src={bitcoinLogo} />
-          <i className="fas fa-caret-down"></i>
-        </div>
+        <CryptoDropdown cryptos={[1, 2, 3]}/>
       </CryptoDetailBox>
 
       <CryptoDetailBox>
