@@ -1,17 +1,18 @@
 import * as actionTypes from '../actions/crypto/actionTypes';
 
+const bitcoin = {
+  code: 'BTC',
+  name: 'Bitcoin'
+};
+
+const ethereum = {
+  code: 'ETH',
+  name: 'Ethereum'
+};
+
 const initialState = {
-  list: [
-    {
-      code: 'BTC',
-      name: 'Bitcoin'
-    },
-    {
-      code: 'ETH',
-      name: 'Ethereum'
-    }
-  ],
-  selectedCrypto: this.list[0],
+  list: [bitcoin, ethereum],
+  selectedCrypto: bitcoin,
   cryptoPrice: {
     price: 0.00,
     percentChange: 0.00,
