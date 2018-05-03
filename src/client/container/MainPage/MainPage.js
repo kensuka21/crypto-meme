@@ -7,6 +7,7 @@ import { getBitcoinNews } from '../../api/news.api';
 import io from 'socket.io-client';
 import GoogleLogin from 'react-google-login';
 import CryptoLike from '../../component/CryptoLike';
+import { connect } from 'react-redux';
 let socket = io(`${process.env.API_URL}/likes`);
 
 class MainPage extends React.Component {
@@ -171,4 +172,10 @@ class MainPage extends React.Component {
   }
 }
 
-export default MainPage;
+function mapStateToProps(state) {
+  return {
+    selectedCrypto: state.crypto.selectedCrypto
+  };
+}
+
+export default connect(mapStateToProps, )(MainPage);
