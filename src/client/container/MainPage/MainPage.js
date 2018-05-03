@@ -1,7 +1,6 @@
 import React from 'react';
 import CryptoDetailPanel from '../../component/CryptoDetailPanel';
 import './MainPage.sass';
-import { getBitcoinPrice } from '../../api/crypto.api';
 import CryptoNewsPanel from '../../component/CryptoNewsPanel/CryptoNewsPanel';
 import { isGifLiked, likeCount } from '../../api/like.api';
 import { getBitcoinNews } from '../../api/news.api';
