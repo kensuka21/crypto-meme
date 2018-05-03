@@ -8,6 +8,10 @@ const CryptoDetailPanel = ({ price, percentChange, priceChange }) => {
   if (!price) {
     return null;
   }
+  price = price.format(2);
+  percentChange = percentChange.format(2);
+  priceChange = priceChange.format(2);
+
   const trend = percentChange >= 0 ? 'bullish' : 'bearish';
   return (
     <div className="crypto-detail-panel">
@@ -34,9 +38,9 @@ const CryptoDetailPanel = ({ price, percentChange, priceChange }) => {
 };
 
 CryptoDetailPanel.propTypes = {
-  price: PropTypes.string,
-  priceChange: PropTypes.string,
-  percentChange: PropTypes.string
+  price: PropTypes.number,
+  priceChange: PropTypes.number,
+  percentChange: PropTypes.number
 };
 
 export default CryptoDetailPanel;

@@ -8,11 +8,13 @@ export function loadCryptoPrice() {
       .then(response => {
         return response.json()
           .then(cryptoPrice => {
+            cryptoPrice = cryptoPrice[0];
             const price = Number(cryptoPrice.price_usd);
             const percentChange = Number(cryptoPrice.percent_change_24h);
             const priceChange = price - (price / ((percentChange / 100) + 1)) ;
 
-            dispatch(loadCryptoPrice({price, percentChange, priceChange}));
+            dispatch(loadCryptoPriceSuccess({ price, percentChange, priceChange }));
+            return { price, percentChange, priceChange };
           });
       });
   };

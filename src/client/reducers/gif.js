@@ -4,7 +4,7 @@ const initialState = '';
 export default function gif(state = initialState, action) {
   switch (action.type) {
   case actionTypes.LOAD_GIF_SUCCESS:
-    return state;
+    return action.gif;
 
   default:
     return state;

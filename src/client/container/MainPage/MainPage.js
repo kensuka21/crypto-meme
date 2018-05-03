@@ -2,12 +2,15 @@ import React from 'react';
 import CryptoDetailPanel from '../../component/CryptoDetailPanel';
 import './MainPage.sass';
 import CryptoNewsPanel from '../../component/CryptoNewsPanel/CryptoNewsPanel';
-import { isGifLiked, likeCount } from '../../api/like.api';
 import { getBitcoinNews } from '../../api/news.api';
 import io from 'socket.io-client';
 import GoogleLogin from 'react-google-login';
 import CryptoLike from '../../component/CryptoLike';
 import { connect } from 'react-redux';
+import { loadCryptoPrice } from '../../actions/crypto';
+import { loadGif } from '../../actions/gif';
+import PropTypes from 'prop-types';
+
 let socket = io(`${process.env.API_URL}/likes`);
 
 class MainPage extends React.Component {
@@ -16,10 +19,6 @@ class MainPage extends React.Component {
     super(props);
 
     this.state = {
-      price: '',
-      percentChange: '',
-      priceChange: '',
-      gif: '',
       likeCount: 0,
       isGifLiked: false,
       news: [],
@@ -40,49 +39,10 @@ class MainPage extends React.Component {
     }
   }
 
-  loadLikes(gif) {
-    likeCount(gif)
-      .then(count => {
-        const email = this.state.authUser ? this.state.authUser.email : 'undefined';
-
-        isGifLiked(email, gif)
-          .then((gifLiked) => {
-            this.setState({ likeCount: count, isGifLiked: gifLiked });
-          }, () => {
-            this.setState({ likeCount: count });
-          });
-      })
-      .catch(() => {});
-  }
-
   loadBitcoinPrice() {
-    getBitcoinPrice()
-      .then(bitconPrice => {
-        bitconPrice = bitconPrice[0];
-
-        let gif = '';
-        const price = Number(bitconPrice.price_usd);
-        const percentChange = Number(bitconPrice.percent_change_24h);
-        const priceChange = price - (price / ((percentChange / 100) + 1)) ;
-
-        if (percentChange < -10){
-          gif = 'crying.gif';
-        } else if (-10 <= percentChange && percentChange < -3) {
-          gif = 'can_we_panic.gif';
-        } else if (-3 <= percentChange && percentChange < 3) {
-          gif = 'its_ok.gif';
-        } else if (percentChange >= 3) {
-          gif = 'getting_excited.gif';
-        }
-
-        this.loadLikes(gif);
-
-        this.setState({
-          price: price.format(2),
-          percentChange: percentChange.format(2),
-          priceChange: priceChange.format(2),
-          gif: gif
-        });
+    this.props.dispatch(loadCryptoPrice())
+      .then(({ percentChange }) => {
+        this.props.dispatch(loadGif(percentChange));
       });
   }
 
@@ -141,7 +101,7 @@ class MainPage extends React.Component {
   render() {
     return (
       <div className="main-page">
-        <CryptoDetailPanel {...this.state}/>
+        <CryptoDetailPanel {...this.props.cryptoPrice}/>
         <br/>
         <div className="gif-meme">
           <div className="google-signin">
@@ -158,7 +118,7 @@ class MainPage extends React.Component {
 
           </div>
           <div className="gif-img">
-            { this.state.gif ? <img src={`${process.env.API_URL}/gifs/${this.state.gif}`}/> : null }
+            { this.props.gif ? <img src={`${process.env.API_URL}/gifs/${this.props.gif}`}/> : null }
           </div>
 
           <br/>
@@ -172,9 +132,17 @@ class MainPage extends React.Component {
   }
 }
 
+MainPage.propTypes = {
+  dispatch: PropTypes.func,
+  cryptoPrice: PropTypes.object,
+  gif: PropTypes.gif
+};
+
 function mapStateToProps(state) {
   return {
-    selectedCrypto: state.crypto.selectedCrypto
+    selectedCrypto: state.crypto.selectedCrypto,
+    cryptoPrice: state.crypto.cryptoPrice,
+    gif: state.gif
   };
 }
 

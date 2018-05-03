@@ -37,8 +37,21 @@ export function loadIsGifLikedFail() {
 }
 
 export function loadlikeCount(gif) {
-  return fetch(`${API_URL}/api/v1/likes/gif/${gif}/count`)
-    .then(response => {
-      return response.json();
-    });
+  return dispatch => {
+    return fetch(`${API_URL}/api/v1/likes/gif/${gif}/count`)
+      .then(response => {
+        return response.json()
+          .then(count => {
+            dispatch(loadLikeCountSuccess(count));
+            return count;
+          });
+      });
+  };
+}
+
+export function loadLikeCountSuccess(count) {
+  return {
+    type: actionTypes.LOAD_LIKE_COUNT_SUCCESS,
+    count
+  };
 }
