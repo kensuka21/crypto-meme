@@ -14,7 +14,7 @@ export function loadGif(percentChange) {
     }
 
     dispatch(loadGifSuccess(gif));
-    return gif;
+    return Promise.resolve(gif);
   };
 }
 

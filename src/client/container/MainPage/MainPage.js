@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 import { loadCryptoPrice } from '../../actions/crypto';
 import { loadGif } from '../../actions/gif';
 import PropTypes from 'prop-types';
+import { loadLikesCount, loadIsGifLiked } from '../../actions/like/index';
+import { loadAuthUser } from '../../actions/auth/index';
 
 let socket = io(`${process.env.API_URL}/likes`);
 
@@ -19,20 +21,17 @@ class MainPage extends React.Component {
     super(props);
 
     this.state = {
-      likeCount: 0,
-      isGifLiked: false,
-      news: [],
-      authUser: null
+      news: []
     };
   }
 
   toggleLike = () => {
-    if (!this.state.authUser) {
+    if (!this.props.authUser) {
       alert('You have to sign in with Google.');
       return;
     }
-    const like = { email: this.state.authUser.email, gif: this.state.gif };
-    if (this.state.isGifLiked) {
+    const like = { email: this.props.authUser.email, gif: this.state.gif };
+    if (this.props.isGifLiked) {
       socket.emit('removeLike', like);
     } else {
       socket.emit('newLike', like);
@@ -42,7 +41,13 @@ class MainPage extends React.Component {
   loadBitcoinPrice() {
     this.props.dispatch(loadCryptoPrice())
       .then(({ percentChange }) => {
-        this.props.dispatch(loadGif(percentChange));
+        this.props.dispatch(loadGif(percentChange))
+          .then(gif => {
+            this.props.dispatch(loadLikesCount(gif));
+            if (this.props.authUser) {
+              this.props.dispatch(loadIsGifLiked(this.props.authUser.email, gif));
+            }
+          });
       });
   }
 
@@ -56,24 +61,16 @@ class MainPage extends React.Component {
   }
 
   componentDidMount() {
-    const authUser = localStorage.getItem('authUser');
-
-    if (authUser) {
-      this.setState({
-        authUser: JSON.parse(authUser)
-      });
-    }
-
     socket.on('connect', () => {
 
     });
 
     socket.on('addLike', () => {
-      this.loadLikes(this.state.gif);
+      this.loadLikes(this.props.gif);
     });
 
     socket.on('reduceLike', () => {
-      this.loadLikes(this.state.gif);
+      this.loadLikes(this.props.gif);
     });
 
     this.loadBitcoinPrice();
@@ -92,10 +89,10 @@ class MainPage extends React.Component {
     };
 
     localStorage.setItem('authUser', JSON.stringify(authUser));
-    this.setState({
-      authUser: authUser
-    });
-    this.loadLikes(this.state.gif);
+    this.props.dispatch(loadAuthUser(authUser))
+      .then(() => {
+        this.props.dispatch(loadIsGifLiked(authUser.email, this.props.gif));
+      });
   }
 
   render() {
@@ -105,7 +102,7 @@ class MainPage extends React.Component {
         <br/>
         <div className="gif-meme">
           <div className="google-signin">
-            { !this.state.authUser ?
+            { !this.props.authUser ?
               <GoogleLogin
                 id="googleBtn"
                 ref={(ref) => this.googleBtn = ref}
@@ -113,17 +110,18 @@ class MainPage extends React.Component {
                 onSuccess={this.responseGoogle.bind(this)}>
                 <i className="fab fa-google"></i> <span>Login with Google</span>
               </GoogleLogin> :
-              <div>Welcome, {this.state.authUser.name}</div>
+              <div>Welcome, {this.props.authUser.name}</div>
             }
 
           </div>
+
           <div className="gif-img">
             { this.props.gif ? <img src={`${process.env.API_URL}/gifs/${this.props.gif}`}/> : null }
           </div>
 
           <br/>
 
-          <CryptoLike isGifLiked={this.state.isGifLiked} likeCount={this.state.likeCount} toggleLike={this.toggleLike}/>
+          <CryptoLike isGifLiked={this.props.isGifLiked} likeCount={this.props.likeCount} toggleLike={this.toggleLike}/>
         </div>
         <br/>
         <CryptoNewsPanel news={this.state.news}/>
@@ -135,14 +133,20 @@ class MainPage extends React.Component {
 MainPage.propTypes = {
   dispatch: PropTypes.func,
   cryptoPrice: PropTypes.object,
-  gif: PropTypes.gif
+  gif: PropTypes.string,
+  isGifLiked: PropTypes.bool,
+  likeCount: PropTypes.number,
+  authUser: PropTypes.object
 };
 
 function mapStateToProps(state) {
   return {
     selectedCrypto: state.crypto.selectedCrypto,
     cryptoPrice: state.crypto.cryptoPrice,
-    gif: state.gif
+    gif: state.gif,
+    isGifLiked: state.like.isGifLiked,
+    likeCount: state.like.count,
+    authUser: state.auth
   };
 }
 

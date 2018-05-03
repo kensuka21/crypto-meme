@@ -11,7 +11,7 @@ export default function like(state = initialState, action) {
     return Object.assign({}, state, { isGifLiked: true });
   case actionTypes.LOAD_IS_GIF_LIKED_FAIL:
     return Object.assign({}, state, { isGifLiked: false });
-  case actionTypes.LOAD_LIKE_COUNT:
+  case actionTypes.LOAD_LIKE_COUNT_SUCCESS:
     return Object.assign({}, state, { count: action.count });
   default:
     return state;

@@ -36,20 +36,20 @@ export function loadIsGifLikedFail() {
   };
 }
 
-export function loadlikeCount(gif) {
+export function loadLikesCount(gif) {
   return dispatch => {
     return fetch(`${API_URL}/api/v1/likes/gif/${gif}/count`)
       .then(response => {
         return response.json()
           .then(count => {
-            dispatch(loadLikeCountSuccess(count));
+            dispatch(loadLikesCountSuccess(count));
             return count;
           });
       });
   };
 }
 
-export function loadLikeCountSuccess(count) {
+export function loadLikesCountSuccess(count) {
   return {
     type: actionTypes.LOAD_LIKE_COUNT_SUCCESS,
     count
