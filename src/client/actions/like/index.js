@@ -21,19 +21,19 @@ export function loadIsGifLiked(email, gif) {
         dispatch(loadIsGifLikedFail());
         return Promise.resolve(false);
       });
-  }
+  };
 }
 
 export function loadIsGifLikedSuccess() {
   return {
     type: actionTypes.LOAD_IS_GIF_LIKED_SUCCESS
-  }
+  };
 }
 
 export function loadIsGifLikedFail() {
   return {
     type: actionTypes.LOAD_IS_GIF_LIKED_FAIL
-  }
+  };
 }
 
 export function loadlikeCount(gif) {
