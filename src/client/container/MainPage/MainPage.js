@@ -12,6 +12,7 @@ import { loadGif } from '../../actions/gif';
 import PropTypes from 'prop-types';
 import { loadLikesCount, loadIsGifLiked } from '../../actions/like/index';
 import { loadAuthUser } from '../../actions/auth/index';
+import { loadCryptoNews } from '../../actions/news';
 
 let socket = io(`${process.env.API_URL}/likes`);
 
@@ -51,15 +52,6 @@ class MainPage extends React.Component {
       });
   }
 
-  loadBitcoinNews() {
-    getBitcoinNews()
-      .then(data => {
-        this.setState({
-          news: data.articles
-        });
-      });
-  }
-
   componentDidMount() {
     socket.on('connect', () => {
 
@@ -76,7 +68,7 @@ class MainPage extends React.Component {
     });
 
     this.loadBitcoinPrice();
-    this.loadBitcoinNews();
+    this.props.dispatch(loadCryptoNews(this.props.selectedCrypto.name));
 
     setTimeout(() => {
     }, 1000);
@@ -126,7 +118,7 @@ class MainPage extends React.Component {
           <CryptoLike isGifLiked={this.props.isGifLiked} likeCount={this.props.likeCount} toggleLike={this.toggleLike}/>
         </div>
         <br/>
-        <CryptoNewsPanel news={this.state.news}/>
+        <CryptoNewsPanel news={this.props.news}/>
       </div>
     );
   }
@@ -134,7 +126,9 @@ class MainPage extends React.Component {
 
 MainPage.propTypes = {
   dispatch: PropTypes.func,
+  selectedCrypto: PropTypes.object,
   cryptoPrice: PropTypes.object,
+  news: PropTypes.array,
   gif: PropTypes.string,
   isGifLiked: PropTypes.bool,
   likeCount: PropTypes.number,
@@ -148,7 +142,8 @@ function mapStateToProps(state) {
     gif: state.gif,
     isGifLiked: state.like.isGifLiked,
     likeCount: state.like.count,
-    authUser: state.auth
+    authUser: state.auth,
+    news: state.news
   };
 }
 
