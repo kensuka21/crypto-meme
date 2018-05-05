@@ -30,7 +30,7 @@ class MainPage extends React.Component {
       alert('You have to sign in with Google.');
       return;
     }
-    const like = { email: this.props.authUser.email, gif: this.state.gif };
+    const like = { email: this.props.authUser.email, gif: this.props.gif };
     if (this.props.isGifLiked) {
       socket.emit('removeLike', like);
     } else {
@@ -66,11 +66,13 @@ class MainPage extends React.Component {
     });
 
     socket.on('addLike', () => {
-      this.loadLikes(this.props.gif);
+      this.props.dispatch(loadLikesCount(this.props.gif));
+      this.props.dispatch(loadIsGifLiked(this.props.authUser.email, this.props.gif));
     });
 
     socket.on('reduceLike', () => {
-      this.loadLikes(this.props.gif);
+      this.props.dispatch(loadLikesCount(this.props.gif));
+      this.props.dispatch(loadIsGifLiked(this.props.authUser.email, this.props.gif));
     });
 
     this.loadBitcoinPrice();
