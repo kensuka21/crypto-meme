@@ -2,7 +2,6 @@ import React from 'react';
 import CryptoDetailPanel from '../../component/CryptoDetailPanel';
 import './MainPage.sass';
 import CryptoNewsPanel from '../../component/CryptoNewsPanel/CryptoNewsPanel';
-import { getBitcoinNews } from '../../api/news.api';
 import io from 'socket.io-client';
 import GoogleLogin from 'react-google-login';
 import CryptoLike from '../../component/CryptoLike';
