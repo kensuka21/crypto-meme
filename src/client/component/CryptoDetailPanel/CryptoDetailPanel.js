@@ -4,7 +4,7 @@ import './CryptoDetailPanel.sass';
 import CryptoDetailBox from './CryptoDetailBox';
 import CryptoDropdown from '../CryptoDropdown';
 
-const CryptoDetailPanel = ({ price, percentChange, priceChange }) => {
+const CryptoDetailPanel = ({ price, percentChange, priceChange, selectedCrypto, cryptos }) => {
   if (!price) {
     return null;
   }
@@ -16,11 +16,11 @@ const CryptoDetailPanel = ({ price, percentChange, priceChange }) => {
   return (
     <div className="crypto-detail-panel">
       <CryptoDetailBox className="crypto-dropdown">
-        <CryptoDropdown cryptos={[1, 2, 3]}/>
+        <CryptoDropdown cryptos={cryptos} selectedCrypto={selectedCrypto}/>
       </CryptoDetailBox>
 
       <CryptoDetailBox>
-        <CryptoDetailBox.CryptoDetailBoxTitle>Bitcoin Price</CryptoDetailBox.CryptoDetailBoxTitle>
+        <CryptoDetailBox.CryptoDetailBoxTitle>{selectedCrypto.name} Price</CryptoDetailBox.CryptoDetailBoxTitle>
         <CryptoDetailBox.CryptoDetailBoxContent>{price}</CryptoDetailBox.CryptoDetailBoxContent>
       </CryptoDetailBox>
 
@@ -40,7 +40,9 @@ const CryptoDetailPanel = ({ price, percentChange, priceChange }) => {
 CryptoDetailPanel.propTypes = {
   price: PropTypes.number,
   priceChange: PropTypes.number,
-  percentChange: PropTypes.number
+  percentChange: PropTypes.number,
+  cryptos: PropTypes.array,
+  selectedCrypto: PropTypes.object
 };
 
 export default CryptoDetailPanel;

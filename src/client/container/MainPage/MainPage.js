@@ -91,7 +91,7 @@ class MainPage extends React.Component {
   render() {
     return (
       <div className="main-page">
-        <CryptoDetailPanel {...this.props.cryptoPrice}/>
+        <CryptoDetailPanel {...this.props.cryptoPrice} cryptos={this.props.cryptos} selectedCrypto={this.props.selectedCrypto}/>
         <br/>
         <div className="gif-meme">
           <div className="google-signin">
@@ -128,6 +128,7 @@ MainPage.propTypes = {
   selectedCrypto: PropTypes.object,
   cryptoPrice: PropTypes.object,
   news: PropTypes.array,
+  cryptos: PropTypes.array,
   gif: PropTypes.string,
   isGifLiked: PropTypes.bool,
   likeCount: PropTypes.number,
@@ -142,7 +143,8 @@ function mapStateToProps(state) {
     isGifLiked: state.like.isGifLiked,
     likeCount: state.like.count,
     authUser: state.auth,
-    news: state.news
+    news: state.news,
+    cryptos: state.crypto.list
   };
 }
 

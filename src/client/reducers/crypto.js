@@ -2,12 +2,14 @@ import * as actionTypes from '../actions/crypto/actionTypes';
 
 const bitcoin = {
   code: 'BTC',
-  name: 'Bitcoin'
+  name: 'Bitcoin',
+  image: require('../assets/bitcoin-logo.png')
 };
 
 const ethereum = {
   code: 'ETH',
-  name: 'Ethereum'
+  name: 'Ethereum',
+  image: require('../assets/ethereum-logo.png')
 };
 
 const initialState = {
