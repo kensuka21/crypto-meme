@@ -25,7 +25,9 @@ const initialState = {
 export default function crypto(state = initialState, action) {
   switch (action.type) {
   case actionTypes.LOAD_CRYPTO_PRICE_SUCCESS:
-    return Object.assign({}, state, { cryptoPrice: action.cryptoPrice});
+    return Object.assign({}, state, { cryptoPrice: action.cryptoPrice });
+  case actionTypes.CHANGE_CRYPTO_SUCCESS:
+    return Object.assign({}, state, { selectedCrypto: action.crypto });
   default:
     return state;
   }

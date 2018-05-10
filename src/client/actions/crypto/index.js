@@ -20,6 +20,19 @@ export function loadCryptoPrice() {
   };
 }
 
+export function changeCrypto(crypto) {
+  return dispatch => {
+    dispatch(changeCryptoSuccess(crypto));
+  };
+}
+
+export function changeCryptoSuccess(crypto) {
+  return {
+    type: actionTypes.CHANGE_CRYPTO_SUCCESS,
+    crypto
+  };
+}
+
 export function loadCryptoPriceSuccess(cryptoPrice) {
   return {
     type: actionTypes.LOAD_CRYPTO_PRICE_SUCCESS,

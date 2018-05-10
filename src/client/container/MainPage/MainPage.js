@@ -38,6 +38,10 @@ class MainPage extends React.Component {
     }
   }
 
+  selectCrypto = (crypto) => {
+    this.props.dispatch();
+  }
+
   loadBitcoinPrice() {
     this.props.dispatch(loadCryptoPrice())
       .then(({ percentChange }) => {

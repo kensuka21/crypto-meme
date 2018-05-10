@@ -4,7 +4,8 @@ import './CryptoDetailPanel.sass';
 import CryptoDetailBox from './CryptoDetailBox';
 import CryptoDropdown from '../CryptoDropdown';
 
-const CryptoDetailPanel = ({ price, percentChange, priceChange, selectedCrypto, cryptos }) => {
+const CryptoDetailPanel = ({ price, percentChange, priceChange,
+  selectedCrypto, cryptos }) => {
   if (!price) {
     return null;
   }
