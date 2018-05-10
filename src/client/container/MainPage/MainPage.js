@@ -6,7 +6,7 @@ import io from 'socket.io-client';
 import GoogleLogin from 'react-google-login';
 import CryptoLike from '../../component/CryptoLike';
 import { connect } from 'react-redux';
-import { loadCryptoPrice } from '../../actions/crypto';
+import { loadCryptoPrice, changeCrypto } from '../../actions/crypto';
 import { loadGif } from '../../actions/gif';
 import PropTypes from 'prop-types';
 import { loadLikesCount, loadIsGifLiked } from '../../actions/like/index';
@@ -39,7 +39,7 @@ class MainPage extends React.Component {
   }
 
   selectCrypto = (crypto) => {
-    this.props.dispatch();
+    this.props.dispatch(changeCrypto(crypto));
   }
 
   loadBitcoinPrice() {
