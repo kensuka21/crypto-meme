@@ -91,7 +91,8 @@ class MainPage extends React.Component {
   render() {
     return (
       <div className="main-page">
-        <CryptoDetailPanel {...this.props.cryptoPrice} cryptos={this.props.cryptos} selectedCrypto={this.props.selectedCrypto}/>
+        <CryptoDetailPanel {...this.props.cryptoPrice} cryptos={this.props.cryptos} selectedCrypto={this.props.selectedCrypto}
+          selectCrypto={this.selectCrypto}/>
         <br/>
         <div className="gif-meme">
           <div className="google-signin">
