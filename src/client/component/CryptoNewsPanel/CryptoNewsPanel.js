@@ -3,11 +3,11 @@ import CryptoNews from './CryptoNews';
 import PropTypes from 'prop-types';
 import './CryptoNewsPanel.sass';
 
-const CryptoNewsPanel = ({news}) => {
+const CryptoNewsPanel = ({ news, selectedCrypto }) => {
   return (
     <div className="crypto-news-panel">
       <div className="crypto-news-panel-header">
-        <h1>BITCOIN NEWS</h1>
+        <h1>{selectedCrypto.name.toUpperCase()} NEWS</h1>
         <label>(Powered by News API)</label>
       </div>
 
@@ -19,7 +19,8 @@ const CryptoNewsPanel = ({news}) => {
 };
 
 CryptoNewsPanel.propTypes = {
-  news: PropTypes.array
+  news: PropTypes.array,
+  selectedCrypto: PropTypes.object
 };
 
 export default CryptoNewsPanel;

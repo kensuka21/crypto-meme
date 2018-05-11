@@ -23,6 +23,7 @@ export function loadCryptoPrice() {
 export function changeCrypto(crypto) {
   return dispatch => {
     dispatch(changeCryptoSuccess(crypto));
+    return Promise.resolve(crypto);
   };
 }
 

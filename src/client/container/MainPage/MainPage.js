@@ -35,10 +35,14 @@ class MainPage extends React.Component {
   }
 
   selectCrypto = (crypto) => {
-    this.props.dispatch(changeCrypto(crypto));
+    this.props.dispatch(changeCrypto(crypto))
+      .then(() => {
+        this.loadCryptoPrice();
+        this.props.dispatch(loadCryptoNews(this.props.selectedCrypto.name));
+      });
   }
 
-  loadBitcoinPrice() {
+  loadCryptoPrice() {
     this.props.dispatch(loadCryptoPrice())
       .then(({ percentChange }) => {
         this.props.dispatch(loadGif(percentChange))
@@ -66,7 +70,7 @@ class MainPage extends React.Component {
       this.props.dispatch(loadIsGifLiked(this.props.authUser.email, this.props.gif));
     });
 
-    this.loadBitcoinPrice();
+    this.loadCryptoPrice();
     this.props.dispatch(loadCryptoNews(this.props.selectedCrypto.name));
 
     setTimeout(() => {
@@ -118,7 +122,7 @@ class MainPage extends React.Component {
           <CryptoLike isGifLiked={this.props.isGifLiked} likeCount={this.props.likeCount} toggleLike={this.toggleLike}/>
         </div>
         <br/>
-        <CryptoNewsPanel news={this.props.news}/>
+        <CryptoNewsPanel news={this.props.news} selectedCrypto={this.props.selectedCrypto}/>
       </div>
     );
   }
