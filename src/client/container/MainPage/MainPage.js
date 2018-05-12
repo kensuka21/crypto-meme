@@ -26,7 +26,7 @@ class MainPage extends React.Component {
       alert('You have to sign in with Google.');
       return;
     }
-    const like = { email: this.props.authUser.email, gif: this.props.gif };
+    const like = { email: this.props.authUser.email, gif: this.props.gif, crypto: this.props.selectedCrypto.name };
     if (this.props.isGifLiked) {
       socket.emit('removeLike', like);
     } else {
@@ -47,9 +47,9 @@ class MainPage extends React.Component {
       .then(({ percentChange }) => {
         this.props.dispatch(loadGif(percentChange))
           .then(gif => {
-            this.props.dispatch(loadLikesCount(gif));
+            this.props.dispatch(loadLikesCount(this.props.selectedCrypto.name, gif));
             if (this.props.authUser) {
-              this.props.dispatch(loadIsGifLiked(this.props.authUser.email, gif));
+              this.props.dispatch(loadIsGifLiked(this.props.selectedCrypto.name, this.props.authUser.email, gif));
             }
           });
       });
@@ -61,13 +61,13 @@ class MainPage extends React.Component {
     });
 
     socket.on('addLike', () => {
-      this.props.dispatch(loadLikesCount(this.props.gif));
-      this.props.dispatch(loadIsGifLiked(this.props.authUser.email, this.props.gif));
+      this.props.dispatch(loadLikesCount(this.props.selectedCrypto.name, this.props.gif));
+      this.props.dispatch(loadIsGifLiked(this.props.selectedCrypto.name, this.props.authUser.email, this.props.gif));
     });
 
     socket.on('reduceLike', () => {
-      this.props.dispatch(loadLikesCount(this.props.gif));
-      this.props.dispatch(loadIsGifLiked(this.props.authUser.email, this.props.gif));
+      this.props.dispatch(loadLikesCount(this.props.selectedCrypto.name, this.props.gif));
+      this.props.dispatch(loadIsGifLiked(this.props.selectedCrypto.name, this.props.authUser.email, this.props.gif));
     });
 
     this.loadCryptoPrice();

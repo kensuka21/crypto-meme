@@ -2,9 +2,9 @@ import * as actionTypes from './actionTypes';
 
 const API_URL = process.env.API_URL;
 
-export function loadIsGifLiked(email, gif) {
+export function loadIsGifLiked(crypto, email, gif) {
   return dispatch => {
-    return fetch(`${API_URL}/api/v1/likes/${email}/gif/${gif}`)
+    return fetch(`${API_URL}/api/v1/likes/${crypto}/${email}/gif/${gif}`)
       .then((response) => {
         return response.json()
           .then(data => {
@@ -36,9 +36,9 @@ export function loadIsGifLikedFail() {
   };
 }
 
-export function loadLikesCount(gif) {
+export function loadLikesCount(crypto, gif) {
   return dispatch => {
-    return fetch(`${API_URL}/api/v1/likes/gif/${gif}/count`)
+    return fetch(`${API_URL}/api/v1/likes/${crypto}/gif/${gif}/count`)
       .then(response => {
         return response.json()
           .then(count => {
