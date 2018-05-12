@@ -5,6 +5,7 @@ const LikeSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  crypto: String,
   gif: {
     type: String,
     required: true
