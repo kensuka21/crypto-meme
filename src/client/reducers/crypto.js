@@ -12,8 +12,14 @@ const ethereum = {
   image: require('../assets/ethereum-logo.png')
 };
 
+const xrp = {
+  code: 'XRP',
+  name: 'Ripple',
+  image: require('../assets/xrp-logo.png')
+};
+
 const initialState = {
-  list: [bitcoin, ethereum],
+  list: [bitcoin, ethereum, xrp],
   selectedCrypto: bitcoin,
   cryptoPrice: {
     price: 0.00,
