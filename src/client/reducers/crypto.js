@@ -18,6 +18,12 @@ const xrp = {
   image: require('../assets/xrp-logo.png')
 };
 
+const litecoin = {
+  code: 'LTC',
+  name: 'Litecoin',
+  image: require('../assets/litecoin-logo.png')
+};
+
 const initialState = {
   list: [bitcoin, ethereum, xrp],
   selectedCrypto: bitcoin,
