@@ -24,6 +24,12 @@ const litecoin = {
   image: require('../assets/litecoin-logo.svg')
 };
 
+const bitcoinCash = {
+  code: 'BCH',
+  name: 'Bitcoin Cash',
+  image: require('../assets/bitcoin-cash-logo.svg')
+};
+
 const initialState = {
   list: [bitcoin, ethereum, xrp, litecoin],
   selectedCrypto: bitcoin,
