@@ -27,7 +27,7 @@ const litecoin = {
 const bitcoinCash = {
   code: 'BCH',
   name: 'Bitcoin Cash',
-  image: require('../assets/bitcoin-cash-logo.svg')
+  image: require('../assets/bitcoin-cash-logo.png')
 };
 
 const initialState = {
