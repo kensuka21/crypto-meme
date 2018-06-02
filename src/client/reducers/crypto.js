@@ -31,7 +31,7 @@ const bitcoinCash = {
 };
 
 const initialState = {
-  list: [bitcoin, ethereum, xrp, litecoin],
+  list: [bitcoin, ethereum, xrp, litecoin, bitcoinCash],
   selectedCrypto: bitcoin,
   cryptoPrice: {
     price: 0.00,
