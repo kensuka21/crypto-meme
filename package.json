@@ -12,7 +12,8 @@
     "dev": "npm-run-all --parallel build:server dev:*",
     "start": "babel-node dist/index.js",
     "lint": "esw webpack.config.* src tools --color",
-    "lint:watch": "npm run lint -- --watch"
+    "lint:watch": "npm run lint -- --watch",
+    "test:watch": "npm test -- --watch"
   },
   "author": "Kenji Mukai <kensuka21@gmail.com>",
   "license": "ISC",
