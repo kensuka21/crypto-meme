@@ -13,7 +13,8 @@
     "start": "babel-node dist/index.js",
     "lint": "esw webpack.config.* src tools --color",
     "lint:watch": "npm run lint -- --watch",
-    "test:watch": "npm test -- --watch"
+    "test:watch": "npm test -- --watch",
+    "test": "jest"
   },
   "author": "Kenji Mukai <kensuka21@gmail.com>",
   "license": "ISC",
