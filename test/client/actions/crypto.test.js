@@ -1,8 +1,16 @@
 import * as actionTypes from '../../../src/client/actions/crypto/actionTypes';
-import { loadAuthUser } from '../../../src/client/actions/crypto';
+import { changeCrypto } from '../../../src/client/actions/crypto';
 
 describe('Crypto actions', () => {
-  it('should create an action to load crypto price', async () => {
-    
+  it('should create an action to change crypto', async () => {
+    const dispatch = jest.fn();
+    const crypto = {};
+    const expectedAction = {
+      type: actionTypes.CHANGE_CRYPTO_SUCCESS,
+      crypto
+    };
+
+    await changeCrypto(crypto)(dispatch);
+    expect(dispatch).toBeCalledWith(expectedAction);
   });
 });
