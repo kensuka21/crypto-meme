@@ -1,5 +1,5 @@
 import * as actionTypes from '../../../src/client/actions/crypto/actionTypes';
-import { changeCrypto, loadCryptoPriceSuccess } from '../../../src/client/actions/crypto';
+import { changeCrypto, loadCryptoPriceSuccess, changeCryptoSuccess } from '../../../src/client/actions/crypto';
 
 describe('Crypto actions', () => {
   it('should create an action to change crypto', async () => {
@@ -12,6 +12,18 @@ describe('Crypto actions', () => {
 
     await changeCrypto(crypto)(dispatch);
     expect(dispatch).toBeCalledWith(expectedAction);
+  });
+
+  it('should create an action to when calling loadCryptoPriceSuccess', async () => {
+    const crypto = {};
+    const expectedAction = {
+      type: actionTypes.CHANGE_CRYPTO_SUCCESS,
+      crypto
+    };
+
+    const action = changeCryptoSuccess(crypto);
+
+    expect(expectedAction).toEqual(action);
   });
 
   it('should create an action to when calling loadCryptoPriceSuccess', async () => {
