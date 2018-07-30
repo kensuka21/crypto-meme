@@ -2,6 +2,7 @@ var config = require('./webpack.config');
 var path = require('path');
 var webpack = require('webpack');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+var apiUrl = 'http://localhost:3000';
 
 config.devServer = {
   contentBase: path.join(__dirname, 'dist'),
@@ -15,7 +16,7 @@ config.plugins.push(
   new webpack.DefinePlugin({
     'process.env': {
       'NODE_ENV': JSON.stringify('development'),
-      'API_URL': JSON.stringify('http://localhost:3000')
+      'API_URL': JSON.stringify(apiUrl)
     }
   })
 );
